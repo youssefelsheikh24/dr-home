@@ -1,0 +1,150 @@
+@import 'tailwindcss';
+
+@theme {
+  /* --- Brand palette --- */
+  --color-cream: #f4efe7;
+  --color-cream-100: #f9f6f0;
+  --color-cream-200: #ece4d7;
+  --color-cream-300: #ddd2c0;
+  --color-charcoal: #17150f;
+  --color-charcoal-800: #201d16;
+  --color-charcoal-700: #2c2820;
+  --color-ink: #0f0e0a;
+  --color-teal: #5e8a82;
+  --color-teal-deep: #3c5f59;
+  --color-teal-soft: #9ab8b1;
+  --color-teal-muted: #7fa39c;
+
+  /* --- Type --- */
+  --font-display: 'Tajawal', 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  --font-sans: 'IBM Plex Sans Arabic', 'Tajawal', system-ui, sans-serif;
+
+  /* --- Motion --- */
+  --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  * {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  html {
+    scroll-behavior: auto; /* handled by Lenis */
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-cream);
+    color: var(--color-charcoal);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::selection {
+    background: var(--color-teal);
+    color: var(--color-cream-100);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* --- Lenis smooth scroll --- */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+/* --- Utilities / helpers --- */
+@utility text-balance {
+  text-wrap: balance;
+}
+
+.brand-en {
+  font-family: 'Tajawal', system-ui, sans-serif;
+  letter-spacing: 0.06em;
+  direction: ltr;
+  unicode-bidi: isolate;
+  font-weight: 900;
+}
+
+/* thin hairline used across editorial layouts */
+.hairline {
+  height: 1px;
+  background: currentColor;
+  opacity: 0.14;
+}
+
+/* cinematic film grain overlay */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  z-index: 30;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream-200);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-teal-deep);
+  border-radius: 999px;
+}
+
+/* typewriter search query in the hero */
+.typing-query {
+  display: inline-block;
+  max-width: 0;
+  border-left: 2px solid var(--color-teal-deep);
+  animation:
+    typing 2.2s steps(22) 0.8s forwards,
+    caret 0.7s step-end infinite;
+}
+@keyframes typing {
+  from {
+    max-width: 0;
+  }
+  to {
+    max-width: 15em;
+  }
+}
+@keyframes caret {
+  50% {
+    border-color: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
