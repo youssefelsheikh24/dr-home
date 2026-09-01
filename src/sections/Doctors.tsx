@@ -1,9 +1,12 @@
 import { Reveal, RevealWords } from '../components/motion/Reveal'
 import { Kicker } from '../components/ui/Kicker'
+import youssefPhoto from '../assets/youssef yasser.jpeg'
+import hossamPhoto from '../assets/hossam ayman.jpeg'
 
 type Doc = {
   monogram: string
   name: string
+  photo: string
   quote: string
   qa: { q: string; a: string }[]
 }
@@ -12,6 +15,7 @@ const DOCTORS: Doc[] = [
   {
     monogram: 'ي',
     name: 'د. يوسف ياسر',
+    photo: youssefPhoto,
     quote:
       'شغلي مش بس إني أعالج مشكلة في سنانك... الأهم إنك تحس إنك في إيد أمينة.',
     qa: [
@@ -35,7 +39,8 @@ const DOCTORS: Doc[] = [
   },
   {
     monogram: 'ح',
-    name: 'د. حسام',
+    name: 'د. حسام ايمن',
+    photo: hossamPhoto,
     quote: 'أكتر حاجة بحبها في شغلي؟ إن كل حالة بتعلّمني حاجة جديدة.',
     qa: [
       {
@@ -58,16 +63,18 @@ const DOCTORS: Doc[] = [
   },
 ]
 
-function Portrait({ monogram }: { monogram: string }) {
+function Portrait({ photo, name }: { photo: string; name: string }) {
   return (
     <div className="grain relative aspect-[4/5] w-full overflow-hidden rounded-3xl bg-charcoal">
-      <div className="absolute inset-0 bg-gradient-to-br from-teal-deep/60 via-charcoal to-ink" />
-      <div className="absolute left-1/2 top-1/2 h-[70%] w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal/20 blur-3xl" />
-      <span className="absolute inset-0 flex items-center justify-center font-display text-[13rem] font-black text-cream-100/90">
-        {monogram}
-      </span>
-      <span className="absolute bottom-5 right-6 text-xs font-light tracking-wide text-cream/40">
-        [ صورة الطبيب — Placeholder ]
+      <img
+        src={photo}
+        alt={name}
+        loading="lazy"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
+      <span className="absolute bottom-5 right-6 font-display text-lg font-bold text-cream-100 drop-shadow">
+        {name}
       </span>
     </div>
   )
@@ -99,7 +106,7 @@ export function Doctors() {
             >
               <Reveal className="md:col-span-5" y={40}>
                 <div dir="rtl">
-                  <Portrait monogram={doc.monogram} />
+                  <Portrait photo={doc.photo} name={doc.name} />
                 </div>
               </Reveal>
 
